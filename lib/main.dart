@@ -10,7 +10,8 @@ int? initScreen;
 void main() async {
   await Hive.initFlutter();
 
-  await Hive.openBox<NoteModel>('notes_box');
+  Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox<NoteModel>('noting_box');
   runApp(const MyApp());
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        'home': (context) => const HomeView(),
+        'home': (context) => HomeView(),
         'splash': (context) => const SplashView(),
         'onboarding': (context) => const OnboardingView()
       },
